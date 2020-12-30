@@ -14,10 +14,11 @@ COPY --from=libpostal /libpostal /libpostal
 RUN cd /libpostal && make install
 WORKDIR /app
 COPY . /app
-RUN CGO_ENABLED=1 make
+RUN CGO_ENABLED=1 make test && CGO_ENABLED=1 make
 
 FROM alpine:latest
-RUN apk add --no-cache ca-certificates curl fortify-headers findutils gcc libc-dev make
+RUN apk add --no-cache ca-certificates curl fortify-headers findutils gcc \
+  libc-dev make
 COPY --from=libpostal /libpostal /libpostal
 COPY --from=builder /app/addr /app/addr
 RUN \

@@ -12,4 +12,7 @@ vendor: go.mod go.sum
 clean:
 	rm -rf addr vendor
 
-.PHONY: all clean
+test: vendor
+	go test -cover ./...
+
+.PHONY: all clean test
