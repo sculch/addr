@@ -38,11 +38,7 @@ func expandHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
 		if r.Header.Get("Content-Type") != "application/json" {
-			errorResponse := make(map[string]string)
-			errorResponse["error"] = "Content-Type must be application/json"
-			jsonResponse, _ := json.Marshal(errorResponse)
-
-			http.Error(w, string(jsonResponse), 400)
+			http.Error(w, string(jsonErrorMessage("Content-Type must be application/json")), 400)
 			return
 		}
 
