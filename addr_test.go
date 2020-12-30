@@ -1,12 +1,12 @@
 package main
 
-import(
+import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-func TestHealthzEndpoint(t *testing.T){
+func TestHealthzEndpoint(t *testing.T) {
 	req, err := http.NewRequest("GET", "/healthz", nil)
 
 	if err != nil {
