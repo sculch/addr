@@ -38,10 +38,10 @@ jobs:
           push: true
           tags: sculch/addr:latest
 
-      - name: Update DockerHub metadata
-        uses: peter-evans/dockerhub-description@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: sculch/addr
-          short-description: "golang server for libpostal data"
+      # - name: Update DockerHub metadata
+      #   uses: peter-evans/dockerhub-description@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      #     repository: sculch/addr
+      #     short-description: "golang server for libpostal data"
