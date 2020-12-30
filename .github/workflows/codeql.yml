@@ -1,0 +1,48 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '28 10 * * 3'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [go]
+
+    steps:
+      - name: Checkout libpostal
+        uses: actions/checkout@v2
+        with:
+          repository: openvenues/libpostal
+          path: libpostal
+
+      - name: Compile and install libpostal
+        run: |
+          cd libpostal
+          ./bootstrap.sh
+          ./configure --disable-data-download --prefix=/usr --datadir=/usr/share
+          make
+          sudo make install
+
+      - name: Checkout addr
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Build addr
+        run: make
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
